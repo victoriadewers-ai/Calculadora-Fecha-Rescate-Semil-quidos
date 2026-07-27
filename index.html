@@ -500,7 +500,6 @@ textarea{resize:vertical; min-height:64px;}
   <div class="card">
     <div class="top-actions">
       <div class="section-title" style="margin-bottom:0;"><span class="bar"></span>Administrar Fondos</div>
-      <button class="btn btn-secondary btn-sm" onclick="openFundModal()">+ Agregar nuevo fondo</button>
     </div>
     <div style="overflow-x:auto;">
       <table class="fund-table">
@@ -1022,7 +1021,7 @@ let funds = [
     id:'blueowl',
     name:'Blue Owl Credit Income Corp – iCapital Offshore Access Fund SPC',
     shortName:'Blue Owl Credit Income Corp',
-    manager:'Blue Owl / iCapital',
+    manager:'Blue Owl',
     currency:'USD',
     notes:'Calendario oficial de rescates (Dealing Calendar) entregado por iCapital Network. Rescate trimestral con Trade Date = último día hábil del trimestre.',
     calculationType:'schedule',
@@ -1044,7 +1043,7 @@ let funds = [
     id:'bcred',
     name:'Blackstone Private Credit Fund (BCRED) – iCapital Offshore Access Fund SPC',
     shortName:'Blackstone Private Credit (BCRED)',
-    manager:'Blackstone / iCapital',
+    manager:'Blackstone',
     currency:'USD',
     notes:'Calendario oficial de rescates (Annual Dealing Calendar 2026) entregado por iCapital Network. Rescate trimestral con Trade Date = último día calendario del trimestre.',
     calculationType:'schedule',
@@ -1066,7 +1065,7 @@ let funds = [
     id:'kkrkpec',
     name:'KKR K-PEC – iCapital Offshore Access Fund SPC',
     shortName:'KKR K-PEC',
-    manager:'KKR / iCapital',
+    manager:'KKR',
     currency:'USD',
     notes:'Calendario oficial de rescates (Dealing Calendar 2026) entregado por iCapital Network. A diferencia de otros fondos, el Redemption Order Cut-Off de este fondo es POSTERIOR a la Redemption Trade Date (23 días calendario después del cierre de trimestre): la solicitud puede presentarse incluso después del cierre del trimestre y aun así aplicar al NAV de ese trimestre, siempre que sea antes del cutoff.',
     calculationType:'schedule',
@@ -1087,7 +1086,7 @@ let funds = [
     id:'btghl',
     name:'BTG Pactual Hamilton Lane GPA Fondo de Inversión',
     shortName:'BTG – Hamilton Lane GPA',
-    manager:'BTG Pactual Chile S.A. Administradora General de Fondos',
+    manager:'Hamilton Lane',
     currency:'USD',
     notes:'Fondo de inversión NO rescatable (no permite rescate total y permanente de sus cuotas). Los Aportantes solo pueden acceder a liquidez mediante "disminuciones parciales de capital" mensuales (Título X, N°TRES del Reglamento Interno), que esta calculadora modela como si fuera un rescate mensual. El valor de las Cuotas a pagar corresponde al último valor cuota disponible (Art. 10° del Reglamento de la Ley).',
     calculationType:'parametric',
@@ -1106,7 +1105,7 @@ let funds = [
     id:'monedacars',
     name:'Moneda CARS Fondo de Inversión (ex Moneda Carlyle XI Fondo de Inversión)',
     shortName:'Moneda – CARS (Carlyle)',
-    manager:'Moneda S.A. Administradora General de Fondos',
+    manager:'Carlyle',
     currency:'USD',
     notes:'Fondo clasificado como "No Rescatable" por definición legal, pero el Reglamento Interno (Art. 28° bis) contempla un mecanismo específico de rescate trimestral: la ventana de solicitud cierra el día 15 de enero/abril/julio/octubre (ese día 15 es el CIERRE del "Plazo para Solicitar Rescates", no su apertura). El valor a pagar corresponde al valor cuota vigente al día hábil inmediatamente anterior a la fecha de pago (Art. 10° del Reglamento de la Ley). Los mismos términos, condiciones y plazos aplican a los rescates de oficio que realice la Administradora conforme al artículo 38° bis de la Ley (rescate forzoso). Por cada rescate, la Administradora envía comunicación y comprobante conforme a la NCG N°365 de la CMF (Art. 28° ter).',
     calculationType:'parametric',
@@ -1125,7 +1124,7 @@ let funds = [
     id:'singularoaktree',
     name:'Fondo de Inversión Singular Oaktree Real Estate Income',
     shortName:'Singular – Oaktree REIF',
-    manager:'Singular Asset Management Administradora General de Fondos S.A.',
+    manager:'Oaktree',
     currency:'USD',
     notes:'El Reglamento Interno señala que el "rescate ordinario" de cuotas no aplica (Título VII, N°2); la única vía de liquidez periódica y predecible para los Aportantes es la "Disminución de Capital Periódica" (Título X, N°2.1), que es la que modela esta calculadora. Existen además dos mecanismos NO modelados aquí: (i) disminución voluntaria y parcial, de decisión exclusiva y discrecional de la Administradora (N°2.2); y (ii) una disposición transitoria de disminución de capital EN ESPECIE, condicionada a que el Fondo aporte cuotas del Fondo Extranjero al Fondo Feeder, pagadera dentro de los 180 días siguientes a esa condición, por hasta el 20% de las cuotas (aviso de 60 días de la Administradora y 30 días del Aportante).',
     calculationType:'parametric',
@@ -1161,12 +1160,8 @@ function renderFundTable(){
       <td>${f.currency||'—'}</td>
       <td class="actions">
         ${f.calculationType === 'schedule'
-          ? `<button class="btn btn-ghost btn-sm" onclick="openScheduleEditModal('${f.id}')">Editar</button>
-             <button class="btn btn-ghost btn-sm" onclick="openScheduleModal('${f.id}')">Ver calendario</button>`
-          : f.calculationType === 'none'
-          ? ``
-          : `<button class="btn btn-ghost btn-sm" onclick="openFundModal('${f.id}')">Editar</button>`}
-        <button class="btn btn-danger btn-sm" onclick="openDeleteModal('${f.id}')">Eliminar</button>
+          ? `<button class="btn btn-ghost btn-sm" onclick="openScheduleModal('${f.id}')">Ver calendario</button>`
+          : ``}
       </td>
     </tr>
   `).join('');
